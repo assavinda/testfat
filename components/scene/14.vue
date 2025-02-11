@@ -247,6 +247,17 @@ function preloadImages() {
             images.set(i, img.src)
         }
     }
+
+    for (let category in categorydict) {
+        for (let i = 0; i < categorydict[category].length; i++) {
+            const img = new Image()
+            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
+            img.onload = () => {
+                images.set(`${category}${categorydict[category][i]}`, img.src)
+            }
+        }
+    }
+    
 }
 
 function animateCurtain() {
