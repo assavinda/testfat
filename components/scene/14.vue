@@ -251,7 +251,7 @@ function animateCurtain() {
             clearInterval(interval)
             curtain.value.classList.add('hidden')
         }
-    }, 400)
+    }, 50)
 }
 
 onMounted(() => {
