@@ -9,57 +9,71 @@
 
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
-    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14>
+    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')" :images="images"></Scene14>
 
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+
 useHead({
   link: [
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap",
     },
   ],
 });
 
-
 const currentScene = ref('00');
-
 
 function setScene(sceneName) {
   currentScene.value = sceneName;
 }
 
+const categorydict = {
+    'eyes': ['01', '02', '03', '04', '05', '06'],
+    'mouth': ['01', '02', '03', '04', '05'],
+    'hair': ['01', '02', '03', '04', '05', '06', '07', '08'],
+    'clothes': ['01', '02', '03', '04', '05'],
+    'trousers': ['01', '02', '03', '04', '05'],
+    'dresses': ['01', '02', '03', '04'],
+    'shoes': ['01', '02', '03', '04', '05'],
+    'accessories': ['01', '02', '03', '04', '05', '06', '07']
+}
+
+const images = ref(new Map())
+
 function preloadImages() {
+    let loadedCount = 0
+    let totalImages = 60 + Object.keys(categorydict).length
+
     for (let i = 0; i < 60; i++) {
         const img = new Image()
         img.src = `./images/14/curtain/c1_1${i}.png`
         img.onload = () => {
-            images.set(i, img.src) // Store image when loaded
+            images.value.set(`curtain${i}`, img.src)
+        }
+    }
+
+    for (let category in categorydict) {
+        const img = new Image()
+        img.src = `./images/14/menu/${category}.png`
+        img.onload = () => {
+            images.value.set(`${category}`, img.src)
+        }
+        for (let i = 0; i < categorydict[category].length; i++) {
+            const img = new Image()
+            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
+            img.onload = () => {
+                images.value.set(`${category}${categorydict[category][i]}`, img.src)
+            }
         }
     }
 }
 
 onMounted(() => {
-    preloadImages() // Start loading images
+    preloadImages()
 })
-
 </script>
-
-
-<style>
-* {
-  font-family: "Kanit", serif;
-}
-
-body {
-  overflow: hidden;
-}
-
-img {
-    user-select: none;  /* Prevent text selection */
-    pointer-events: none; /* Disable dragging interactions */
-}
-</style>

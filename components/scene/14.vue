@@ -14,7 +14,7 @@
 
         <!-- Select menu -->
         <div class="absolute top-0 left-0">
-            <img :src="`./images/14/menu/${currentCategory}.png`">
+            <img :src="images.get(currentCategory)">
 
             <div class="absolute flex top-[5%] right-[3.7%] w-[52%] h-[8%] wearing z-[100]">
                 <div v-for="section in category" @click="setCategory(section)" class="w-full h-full  cursor-pointer">
@@ -236,42 +236,18 @@ function setItem(category,item) {
 
 const curtain = ref(null)
 let c = 0
-let images = new Map()
 
-
-function preloadImages() {
-    for (let i = 0; i < 60; i++) {
-        const img = new Image()
-        img.src = `./images/14/curtain/c1_1${i}.png`
-        img.onload = () => {
-            images.set(i, img.src)
-        }
-    }
-
-    for (let category in categorydict) {
-        const img = new Image()
-        img.src = `./images/14/menu/${category}.png`
-        img.onload = () => {
-            images.set(`${category}`, img.src)
-        }
-        for (let i = 0; i < categorydict[category].length; i++) {
-            const img = new Image()
-            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
-            img.onload = () => {
-                images.set(`${category}${categorydict[category][i]}`, img.src)
-            }
-        }
-    }
-    
-}
+const props = defineProps({
+  images: Object
+})
 
 function animateCurtain() {
     if (!curtain.value) return
 
     function step() {
         if (c < 60) {
-            if (images.has(c)) {
-                curtain.value.src = images.get(c)
+            if (props.images.get('curtain'+ c)) {
+                curtain.value.src = props.images.get('curtain' + c)
             }
             c++
             setTimeout(step, 40)
@@ -284,7 +260,6 @@ function animateCurtain() {
 }
 
 onMounted(() => {
-    preloadImages()
     setTimeout(animateCurtain, 500)
 })
 
@@ -296,8 +271,8 @@ function nextgame() {
     curtain.value.classList.remove('hidden')
     function step() {
         if (c >= 0) {
-            if (images.has(c)) {
-                curtain.value.src = images.get(c)
+            if (props.images.get(c)) {
+                curtain.value.src = props.images.get(c)
             }
             c--
             setTimeout(step, 40)
