@@ -272,7 +272,7 @@ function nextgame() {
     function step() {
         if (c >= 0) {
             if (props.images.has('curtain'+ c)) {
-                curtain.value.src = props.images.value.get('curtain' + c)
+                curtain.value.src = props.images.get('curtain' + c)
             }
             c--
             setTimeout(step, 40)
