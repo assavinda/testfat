@@ -12,6 +12,6 @@ export default defineNuxtConfig({
     ],
   },
   app: {
-    baseURL: '/fattest/',
+    baseURL: '/testfat/',
   }
 })
