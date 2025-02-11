@@ -271,8 +271,8 @@ function nextgame() {
     curtain.value.classList.remove('hidden')
     function step() {
         if (c >= 0) {
-            if (props.images.get(c)) {
-                curtain.value.src = props.images.get(c)
+            if (props.images.get('curtain' + c)) {
+                curtain.value.src = props.images.get('curtain' + c)
             }
             c--
             setTimeout(step, 40)

@@ -46,7 +46,6 @@ const categorydict = {
 const images = ref(new Map())
 
 function preloadImages() {
-    let loadedCount = 0
     let totalImages = 60 + Object.keys(categorydict).length
 
     for (let i = 0; i < 60; i++) {
