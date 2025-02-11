@@ -42,7 +42,7 @@
 
         <!-- Body -->
         <div class="absolute top-0 left-0">
-            <img :src="`/public/images/14/body/${currentSkin}.png`">
+            <img :src="`./images/14/body/${currentSkin}.png`">
         </div>
 
         <!-- shoes, blonde hair, brown hair -->
@@ -251,11 +251,11 @@ const emit = defineEmits()
 function nextgame() {
     let intervalreverse = setInterval(() => {
         curtain.value.classList.remove('hidden')
-        curtain.value.src = `/images/14/curtain/c1_1${c}.png`
+        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
         c-=1
         if (c == 0) {
             clearInterval(intervalreverse)
-            curtain.value.src = `/images/14/curtain/c1_1${c}.png`
+            curtain.value.src = `./images/14/curtain/c1_1${c}.png`
             setTimeout(() => {
                 emit('nextpage')
             },1500)
