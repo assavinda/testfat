@@ -249,6 +249,11 @@ function preloadImages() {
     }
 
     for (let category in categorydict) {
+        const img = new Image()
+        img.src = `./images/14/menu/${category}.png`
+        img.onload = () => {
+            images.set(`${category}`, img.src)
+        }
         for (let i = 0; i < categorydict[category].length; i++) {
             const img = new Image()
             img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
