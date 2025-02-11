@@ -9,7 +9,7 @@
 
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
-    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14>
+    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')" :images="images"></Scene14>
 
   </div>
 </template>
@@ -43,26 +43,36 @@ const categorydict = {
     'accessories': ['01', '02', '03', '04', '05', '06', '07']
 }
 
+const images = ref(new Map())
 
-const imagesMap = ref({});
-const imagesLoaded = ref(false);
+function preloadImages() {
+    let totalImages = 60 + Object.keys(categorydict).length
 
-const getFileName = (path) => path.split('/').pop();
+    for (let i = 0; i < 60; i++) {
+        const img = new Image()
+        img.src = `./images/14/curtain/c1_1${i}.png`
+        img.onload = () => {
+            images.value.set(`curtain${i}`, img.src)
+        }
+    }
 
-const preloadImages = async () => {
-  const imageModules = import.meta.glob('/public/images/**/*.{png,jpg,jpeg,gif,webp}', { eager: true });
+    for (let category in categorydict) {
+        const img = new Image()
+        img.src = `./images/14/menu/${category}.png`
+        img.onload = () => {
+            images.value.set(`${category}`, img.src)
+        }
+        for (let i = 0; i < categorydict[category].length; i++) {
+            const img = new Image()
+            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
+            img.onload = () => {
+                images.value.set(`${category}${categorydict[category][i]}`, img.src)
+            }
+        }
+    }
+}
 
-  for (const [path, module] of Object.entries(imageModules)) {
-    const filename = getFileName(path);
-    const img = new Image();
-    img.src = module.default || module;
-    img.onload = () => {
-      imagesMap.value[filename] = img.src;
-      console.log('downloaded')
-    };
-  }
-};
-
-onMounted(preloadImages);
-provide('imagesMap', imagesMap); // Provide globally
+onMounted(() => {
+    preloadImages()
+})
 </script>
