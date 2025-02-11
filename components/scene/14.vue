@@ -14,7 +14,7 @@
 
         <!-- Select menu -->
         <div class="absolute top-0 left-0">
-            <img :src="`/images/14/menu/${currentCategory}.png`">
+            <img :src="`./images/14/menu/${currentCategory}.png`">
 
             <div class="absolute flex top-[5%] right-[3.7%] w-[52%] h-[8%] wearing z-[100]">
                 <div v-for="section in category" @click="setCategory(section)" class="w-full h-full  cursor-pointer">
@@ -230,14 +230,14 @@ function setItem(category,item) {
         console.log(wearing.value.length)
     }
     
-    currentLayer.value.src = `/public/images/14/${category}/${category}${item}.png`
+    currentLayer.value.src = `./images/14/${category}/${category}${item}.png`
 }
 
 const curtain = ref(null)
 let c = 0
 function animateCurtain() {
     let interval = setInterval(() => {
-        curtain.value.src = `/public/images/14/curtain/c1_1${c}.png`
+        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
         c+=1
         if (c >= 60) {
             clearInterval(interval)
