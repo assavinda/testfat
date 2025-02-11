@@ -71,5 +71,7 @@ function preloadImages() {
     }
 }
 
-onMounted(preloadImages())
+onMounted(() => {
+  preloadImages()
+})
 </script>
