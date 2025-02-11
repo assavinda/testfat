@@ -137,7 +137,7 @@
         </div>
 
         <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] cursor-pointer">
-            <img class="curtain" ref="curtain" src="/public/images/14/curtain/c1_10.png">
+            <img class="curtain" ref="curtain" :src="`./images/14/curtain/c1_1${c}.png`">
         </div>
 
 
@@ -245,7 +245,7 @@ function animateCurtain() {
     interval = setInterval(() => {
         if (!curtain.value) return // Ensure curtain exists
 
-        curtain.value.src = `${config.public.baseURL}images/14/curtain/c1_1${c}.png`
+        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
         c += 1
         if (c >= 60) {
             clearInterval(interval)
