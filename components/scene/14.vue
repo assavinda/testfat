@@ -239,15 +239,15 @@ let c = 0
 let images = new Map() // Store preloaded images in a map
 
 // Preload images gradually instead of waiting for all
-// function preloadImages() {
-//     for (let i = 0; i < 60; i++) {
-//         const img = new Image()
-//         img.src = `./images/14/curtain/c1_1${i}.png`
-//         img.onload = () => {
-//             images.set(i, img.src) // Store image when loaded
-//         }
-//     }
-// }
+function preloadImages() {
+    for (let i = 0; i < 60; i++) {
+        const img = new Image()
+        img.src = `./images/14/curtain/c1_1${i}.png`
+        img.onload = () => {
+            images.set(i, img.src) // Store image when loaded
+        }
+    }
+}
 
 // Start animation (even if all images aren't loaded yet)
 function animateCurtain() {
@@ -276,6 +276,24 @@ onMounted(() => {
 
 const emit = defineEmits()
 
+function nextgame() {
+    if (!curtain.value) return
+
+    function step() {
+        if (c >= 0) {
+            if (images.has(c)) {
+                // If image is loaded, display it
+                curtain.value.src = images.get(c)
+            }
+            c--
+            setTimeout(step, 40) // Continue animation every 40ms
+        } else {
+            curtain.value.classList.add('hidden')
+        }
+    }
+
+    step() // Start animation loop
+}
 // function nextgame() {
 //     intervalreverse = setInterval(() => {
 //         curtain.value.classList.remove('hidden')
