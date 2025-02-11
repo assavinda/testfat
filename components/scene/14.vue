@@ -260,20 +260,20 @@ onMounted(() => {
 
 const emit = defineEmits()
 
-function nextgame() {
-    intervalreverse = setInterval(() => {
-        curtain.value.classList.remove('hidden')
-        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-        c-=1
-        if (c == 0) {
-            clearInterval(intervalreverse)
-            curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-            setTimeout(() => {
-                emit('nextpage')
-            },1500)
-        }
-    },40)
-}
+// function nextgame() {
+//     intervalreverse = setInterval(() => {
+//         curtain.value.classList.remove('hidden')
+//         curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+//         c-=1
+//         if (c == 0) {
+//             clearInterval(intervalreverse)
+//             curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+//             setTimeout(() => {
+//                 emit('nextpage')
+//             },1500)
+//         }
+//     },40)
+// }
 </script>
 
 <style scoped>
