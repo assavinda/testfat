@@ -32,6 +32,21 @@ function setScene(sceneName) {
   currentScene.value = sceneName;
 }
 
+function preloadImages() {
+    for (let i = 0; i < 60; i++) {
+        const img = new Image()
+        img.src = `./images/14/curtain/c1_1${i}.png`
+        img.onload = () => {
+            images.set(i, img.src) // Store image when loaded
+        }
+    }
+}
+
+onMounted(() => {
+    preloadImages() // Start loading images
+    // Start animation after short delay
+})
+
 </script>
 
 

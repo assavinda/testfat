@@ -239,15 +239,15 @@ let c = 0
 let images = new Map() // Store preloaded images in a map
 
 // Preload images gradually instead of waiting for all
-function preloadImages() {
-    for (let i = 0; i < 60; i++) {
-        const img = new Image()
-        img.src = `./images/14/curtain/c1_1${i}.png`
-        img.onload = () => {
-            images.set(i, img.src) // Store image when loaded
-        }
-    }
-}
+// function preloadImages() {
+//     for (let i = 0; i < 60; i++) {
+//         const img = new Image()
+//         img.src = `./images/14/curtain/c1_1${i}.png`
+//         img.onload = () => {
+//             images.set(i, img.src) // Store image when loaded
+//         }
+//     }
+// }
 
 // Start animation (even if all images aren't loaded yet)
 function animateCurtain() {
