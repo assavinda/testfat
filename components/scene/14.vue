@@ -1,7 +1,7 @@
 <template>
     <Container>
         <div>
-            <img src="/public/images/14/m1-01.png" class="max-w-screen max-h-screen object-contain">
+            <img :src="imagesMap['m1-01.png']" class="max-w-screen max-h-screen object-contain">
         </div>
 
         <div class="absolute top-[12.4%] left-[42%] w-[5%] lamp">
@@ -14,7 +14,7 @@
 
         <!-- Select menu -->
         <div class="absolute top-0 left-0">
-            <img :src="images.get(currentCategory)">
+            <img :src="imagesMap[`${currentCategory}.png`]">
 
             <div class="absolute flex top-[5%] right-[3.7%] w-[52%] h-[8%] wearing z-[100]">
                 <div v-for="section in category" @click="setCategory(section)" class="w-full h-full  cursor-pointer">
@@ -137,7 +137,7 @@
         </div>
 
         <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] transition-all duration-500">
-            <img class="curtain" ref="curtain" :src="`./images/14/curtain/c1_1${c}.png`">
+            <img class="curtain" ref="curtain" :src="imagesMap[`c1_1${c}.png`]">
         </div>
 
 
@@ -145,6 +145,8 @@
 </template>
 
 <script setup>
+const imagesMap = inject('imagesMap');
+
 const category = ['eyes','mouth','hair','clothes','trousers','dresses','shoes','accessories']
 const categorydict = 
 {
@@ -246,8 +248,9 @@ function animateCurtain() {
 
     function step() {
         if (c < 60) {
-            if (props.images.get('curtain'+ c)) {
-                curtain.value.src = props.images.get('curtain' + c)
+            
+            if (imagesMap.value[`c1_1${c}.png`]) {
+                curtain.value.src = imagesMap.value[`c1_1${c}.png`]
             }
             c++
             setTimeout(step, 40)
@@ -265,22 +268,22 @@ onMounted(() => {
 
 const emit = defineEmits()
 
-function nextgame() {
-    if (!curtain.value) return
-    c = 60
-    curtain.value.classList.remove('hidden')
-    function step() {
-        if (c >= 0) {
-            if (props.images.get('curtain' + c)) {
-                curtain.value.src = props.images.get('curtain' + c)
-            }
-            c--
-            setTimeout(step, 40)
-        }
-    }
+// function nextgame() {
+//     if (!curtain.value) return
+//     c = 60
+//     curtain.value.classList.remove('hidden')
+//     function step() {
+//         if (c >= 0) {
+//             if (imagesMap.has(`c1_1${c}.png`)) {
+//                 curtain.value.src = imagesMap[`c1_1${c}.png`]
+//             }
+//             c--
+//             setTimeout(step, 40)
+//         }
+//     }
 
-    step()
-}
+//     step()
+// }
 </script>
 
 <style scoped>
