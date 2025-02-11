@@ -259,7 +259,37 @@ function animateCurtain() {
     step()
 }
 
+const images = ref(new Map())
+
+function preloadImages() {
+    let totalImages = 60 + Object.keys(categorydict).length
+
+    for (let i = 0; i < 60; i++) {
+        const img = new Image()
+        img.src = `./images/14/curtain/c1_1${i}.png`
+        img.onload = () => {
+            images.value.set(`curtain${i}`, img.src)
+        }
+    }
+
+    for (let category in categorydict) {
+        const img = new Image()
+        img.src = `./images/14/menu/${category}.png`
+        img.onload = () => {
+            images.value.set(`${category}`, img.src)
+        }
+        for (let i = 0; i < categorydict[category].length; i++) {
+            const img = new Image()
+            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
+            img.onload = () => {
+                images.value.set(`${category}${categorydict[category][i]}`, img.src)
+            }
+        }
+    }
+}
+
 onMounted(() => {
+    preloadImages()
     setTimeout(animateCurtain, 500)
 })
 

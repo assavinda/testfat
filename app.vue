@@ -32,47 +32,4 @@ function setScene(sceneName) {
   currentScene.value = sceneName;
 }
 
-const categorydict = {
-    'eyes': ['01', '02', '03', '04', '05', '06'],
-    'mouth': ['01', '02', '03', '04', '05'],
-    'hair': ['01', '02', '03', '04', '05', '06', '07', '08'],
-    'clothes': ['01', '02', '03', '04', '05'],
-    'trousers': ['01', '02', '03', '04', '05'],
-    'dresses': ['01', '02', '03', '04'],
-    'shoes': ['01', '02', '03', '04', '05'],
-    'accessories': ['01', '02', '03', '04', '05', '06', '07']
-}
-
-const images = ref(new Map())
-
-function preloadImages() {
-    let totalImages = 60 + Object.keys(categorydict).length
-
-    for (let i = 0; i < 60; i++) {
-        const img = new Image()
-        img.src = `./images/14/curtain/c1_1${i}.png`
-        img.onload = () => {
-            images.value.set(`curtain${i}`, img.src)
-        }
-    }
-
-    for (let category in categorydict) {
-        const img = new Image()
-        img.src = `./images/14/menu/${category}.png`
-        img.onload = () => {
-            images.value.set(`${category}`, img.src)
-        }
-        for (let i = 0; i < categorydict[category].length; i++) {
-            const img = new Image()
-            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
-            img.onload = () => {
-                images.value.set(`${category}${categorydict[category][i]}`, img.src)
-            }
-        }
-    }
-}
-
-onMounted(() => {
-    preloadImages()
-})
 </script>
