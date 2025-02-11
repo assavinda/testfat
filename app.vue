@@ -25,7 +25,7 @@ useHead({
 });
 
 
-const currentScene = ref('14');
+const currentScene = ref('00');
 
 
 function setScene(sceneName) {

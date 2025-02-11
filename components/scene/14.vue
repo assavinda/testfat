@@ -238,20 +238,21 @@ const curtain = ref(null)
 const config = useRuntimeConfig() // Get base URL
 let c = 0
 
-let interval;
-let intervalreverse;
+
+let animationFrameId = null // Store the animation frame ID
 
 function animateCurtain() {
-    interval = setInterval(() => {
-        if (!curtain.value) return // Ensure curtain exists
+    if (!curtain.value) return
 
-        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-        c += 1
-        if (c >= 60) {
-            clearInterval(interval)
-            curtain.value.classList.add('hidden')
-        }
-    }, 50)
+    curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+    c++
+
+    if (c < 60) {
+        animationFrameId = requestAnimationFrame(animateCurtain)
+    } else {
+        curtain.value.classList.add('hidden')
+        cancelAnimationFrame(animationFrameId) // Stop animation
+    }
 }
 
 onMounted(() => {
@@ -260,20 +261,20 @@ onMounted(() => {
 
 const emit = defineEmits()
 
-function nextgame() {
-    intervalreverse = setInterval(() => {
-        curtain.value.classList.remove('hidden')
-        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-        c-=1
-        if (c == 0) {
-            clearInterval(intervalreverse)
-            curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-            setTimeout(() => {
-                emit('nextpage')
-            },1500)
-        }
-    },50)
-}
+// function nextgame() {
+//     intervalreverse = setInterval(() => {
+//         curtain.value.classList.remove('hidden')
+//         curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+//         c-=1
+//         if (c == 0) {
+//             clearInterval(intervalreverse)
+//             curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+//             setTimeout(() => {
+//                 emit('nextpage')
+//             },1500)
+//         }
+//     },50)
+// }
 </script>
 
 <style scoped>
