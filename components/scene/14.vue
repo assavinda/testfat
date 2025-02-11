@@ -246,8 +246,8 @@ function animateCurtain() {
 
     function step() {
         if (c < 60) {
-            if (props.images.get('curtain'+ c)) {
-                curtain.value.src = props.images.get('curtain' + c)
+            if (images.value.get('curtain'+ c)) {
+                curtain.value.src = images.value.get('curtain' + c)
             }
             c++
             setTimeout(step, 40)
@@ -301,8 +301,8 @@ function nextgame() {
     curtain.value.classList.remove('hidden')
     function step() {
         if (c >= 0) {
-            if (props.images.get('curtain' + c)) {
-                curtain.value.src = props.images.get( 'curtain' + c)
+            if (images.value.get('curtain' + c)) {
+                curtain.value.src = images.value.get( 'curtain' + c)
             }
             c--
             setTimeout(step, 40)
