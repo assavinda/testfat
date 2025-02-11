@@ -277,6 +277,7 @@ const emit = defineEmits()
 function nextgame() {
     if (!curtain.value) return
     c = 60
+    curtain.value.classList.remove('hidden')
     function step() {
         if (c >= 0) {
             if (images.has(c)) {
@@ -284,8 +285,6 @@ function nextgame() {
             }
             c--
             setTimeout(step, 40)
-        } else {
-            curtain.value.classList.add('hidden')
         }
     }
 
