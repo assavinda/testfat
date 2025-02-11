@@ -14,7 +14,7 @@
 
         <!-- Select menu -->
         <div class="absolute top-0 left-0">
-            <img :src="`/images/14/menu/${currentCategory}.png`">
+            <img :src="`${useRuntimeConfig().public.baseURL}/images/14/menu/${currentCategory}.png`">
 
             <div class="absolute flex top-[5%] right-[3.7%] w-[52%] h-[8%] wearing z-[100]">
                 <div v-for="section in category" @click="setCategory(section)" class="w-full h-full  cursor-pointer">
@@ -42,7 +42,7 @@
 
         <!-- Body -->
         <div class="absolute top-0 left-0">
-            <img :src="`/images/14/body/${currentSkin}.png`">
+            <img :src="`${useRuntimeConfig().public.baseURL}/images/14/body/${currentSkin}.png`">
         </div>
 
         <!-- shoes, blonde hair, brown hair -->
@@ -237,7 +237,7 @@ const curtain = ref(null)
 let c = 0
 function animateCurtain() {
     let interval = setInterval(() => {
-        curtain.value.src = `/images/14/curtain/c1_1${c}.png`
+        curtain.value.src = `${useRuntimeConfig().public.baseURL}/images/14/curtain/c1_1${c}.png`
         c+=1
         if (c >= 60) {
             clearInterval(interval)
