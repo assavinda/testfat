@@ -254,6 +254,10 @@ function animateCurtain() {
     }, 40)
 }
 
+onMounted(() => {
+    animateCurtain()
+})
+
 const emit = defineEmits()
 
 function nextgame() {
