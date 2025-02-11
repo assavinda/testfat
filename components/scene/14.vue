@@ -1,15 +1,15 @@
 <template>
     <Container>
         <div>
-            <img src="/public/images/14/m1-01.png" class="max-w-screen max-h-screen object-contain">
+            <img src="/images/14/m1-01.png" class="max-w-screen max-h-screen object-contain">
         </div>
 
         <div class="absolute top-[12.4%] left-[42%] w-[5%] lamp">
-            <img src="/public/images/14/lamp.png">
+            <img src="/images/14/lamp.png">
         </div>
 
         <div class="absolute top-[12.4%] right-[1.35%] w-[5%] lamp">
-            <img src="/public/images/14/lamp.png">
+            <img src="/images/14/lamp.png">
         </div>
 
         <!-- Select menu -->
@@ -37,7 +37,7 @@
 
         <!-- Button -->
         <div @click="nextgame()" class="absolute bottom-[6.3%] right-[1%] z-[101] w-[6.3%] cursor-pointer hover:scale-[1.2]">
-            <img src="/public/images/14/button.png">
+            <img src="/images/14/button.png">
         </div>
 
         <!-- Body -->
@@ -49,15 +49,15 @@
         <div class="absolute w-full h-full top-0 left-0 z-[13]">
             <div class="relative w-full h-full">
                 <div class="absolute top-0 left-0">
-                    <img ref="clothes" src="/public/images/14/blank.png">
+                    <img ref="clothes" src="/images/14/blank.png">
                 </div>
 
                 <div class="absolute top-0 left-0">
-                    <img ref="b-hair" src="/public/images/14/blank.png">
+                    <img ref="b-hair" src="/images/14/blank.png">
                 </div>
 
                 <div class="absolute top-0 left-0">
-                    <img ref="shoes" src="/public/images/14/blank.png">
+                    <img ref="shoes" src="/images/14/blank.png">
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
         <!-- clothes -->
         <div class="absolute top-0 left-0 z-[14]">
             <div>
-                <img ref="clothes" src="/public/images/14/blank.png">
+                <img ref="clothes" src="/images/14/blank.png">
             </div>
         </div>
 
@@ -73,15 +73,15 @@
         <div class="absolute w-full h-full top-0 left-0 z-[16]">
             <div class="relative w-full h-full">
                 <div class="absolute top-0 left-0">
-                    <img ref="trousers" src="/public/images/14/blank.png">
+                    <img ref="trousers" src="/images/14/blank.png">
                 </div>
 
                 <div class="absolute top-0 left-0">
-                    <img ref="dresses" src="/public/images/14/blank.png">
+                    <img ref="dresses" src="/images/14/blank.png">
                 </div>
 
                 <div class="absolute top-0 left-0">
-                    <img ref="jacket" src="/public/images/14/blank.png">
+                    <img ref="jacket" src="/images/14/blank.png">
                 </div>
             </div>
             
@@ -91,7 +91,7 @@
         <!-- hair -->
         <div class="absolute top-0 left-0 z-[17]">
             <div>
-                <img ref="hair" src="/public/images/14/blank.png">
+                <img ref="hair" src="/images/14/blank.png">
             </div>
         </div>
 
@@ -99,25 +99,25 @@
         <div class="absolute w-full h-full top-0 left-0 z-[18]">
             <div class="relative w-full h-full">
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories1" src="/public/images/14/blank.png">  
+                    <img ref="accessories1" src="/images/14/blank.png">  
                 </div>
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories2" src="/public/images/14/blank.png">  
+                    <img ref="accessories2" src="/images/14/blank.png">  
                 </div>
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories3" src="/public/images/14/blank.png">  
+                    <img ref="accessories3" src="/images/14/blank.png">  
                 </div>
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories4" src="/public/images/14/blank.png">  
+                    <img ref="accessories4" src="/images/14/blank.png">  
                 </div>
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories5" src="/public/images/14/blank.png">  
+                    <img ref="accessories5" src="/images/14/blank.png">  
                 </div>
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories6" src="/public/images/14/blank.png">  
+                    <img ref="accessories6" src="/images/14/blank.png">  
                 </div>
                 <div class="absolute top-0 left-0">
-                    <img ref="accessories7" src="/public/images/14/blank.png">  
+                    <img ref="accessories7" src="/images/14/blank.png">  
                 </div>
             </div>
         </div>
@@ -125,19 +125,19 @@
         <!-- mouth -->
         <div class="absolute top-0 left-0 z-[19]">
             <div>
-                <img ref="mouth" src="/public/images/14/blank.png">
+                <img ref="mouth" src="/images/14/blank.png">
             </div>
         </div>
 
         <!-- eyes -->
         <div class="absolute top-0 left-0 z-[20]">
             <div>
-                <img ref="eyes" src="/public/images/14/blank.png">
+                <img ref="eyes" src="/images/14/blank.png">
             </div>
         </div>
 
         <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] cursor-pointer">
-            <img class="curtain" ref="curtain" src="/public/images/14/curtain/c1_10.png">
+            <img class="curtain" ref="curtain" src="/images/14/curtain/c1_10.png">
         </div>
 
 
