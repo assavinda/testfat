@@ -44,7 +44,6 @@ function preloadImages() {
 
 onMounted(() => {
     preloadImages() // Start loading images
-    // Start animation after short delay
 })
 
 </script>

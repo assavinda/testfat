@@ -236,78 +236,61 @@ function setItem(category,item) {
 
 const curtain = ref(null)
 let c = 0
-let images = new Map() // Store preloaded images in a map
+let images = new Map()
 
-// Preload images gradually instead of waiting for all
+
 function preloadImages() {
     for (let i = 0; i < 60; i++) {
         const img = new Image()
         img.src = `./images/14/curtain/c1_1${i}.png`
         img.onload = () => {
-            images.set(i, img.src) // Store image when loaded
+            images.set(i, img.src)
         }
     }
 }
 
-// Start animation (even if all images aren't loaded yet)
 function animateCurtain() {
     if (!curtain.value) return
 
     function step() {
         if (c < 60) {
             if (images.has(c)) {
-                // If image is loaded, display it
                 curtain.value.src = images.get(c)
             }
             c++
-            setTimeout(step, 40) // Continue animation every 40ms
+            setTimeout(step, 40)
         } else {
             curtain.value.classList.add('hidden')
         }
     }
 
-    step() // Start animation loop
+    step()
 }
 
 onMounted(() => {
-    preloadImages() // Start loading images
-    setTimeout(animateCurtain, 500) // Start animation after short delay
+    preloadImages()
+    setTimeout(animateCurtain, 500)
 })
 
 const emit = defineEmits()
 
 function nextgame() {
     if (!curtain.value) return
-
+    c = 60
     function step() {
         if (c >= 0) {
             if (images.has(c)) {
-                // If image is loaded, display it
                 curtain.value.src = images.get(c)
             }
             c--
-            setTimeout(step, 40) // Continue animation every 40ms
+            setTimeout(step, 40)
         } else {
             curtain.value.classList.add('hidden')
         }
     }
 
-    step() // Start animation loop
+    step()
 }
-// function nextgame() {
-//     intervalreverse = setInterval(() => {
-//         curtain.value.classList.remove('hidden')
-//         curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-//         c-=1
-//         if (c == 0) {
-//             clearInterval(intervalreverse)
-//             curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-//             setTimeout(() => {
-//                 emit('nextpage')
-//             },1500)
-//         }
-//     },50)
-// }
 </script>
 
 <style scoped>
