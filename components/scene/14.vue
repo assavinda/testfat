@@ -235,28 +235,43 @@ function setItem(category,item) {
 
 
 const curtain = ref(null)
-const config = useRuntimeConfig() // Get base URL
 let c = 0
+let images = new Map() // Store preloaded images in a map
 
-
-let animationFrameId = null // Store the animation frame ID
-
-function animateCurtain() {
-    if (!curtain.value) return
-
-    curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-    c++
-
-    if (c < 60) {
-        animationFrameId = requestAnimationFrame(animateCurtain)
-    } else {
-        curtain.value.classList.add('hidden')
-        cancelAnimationFrame(animationFrameId) // Stop animation
+// Preload images gradually instead of waiting for all
+function preloadImages() {
+    for (let i = 0; i < 60; i++) {
+        const img = new Image()
+        img.src = `./images/14/curtain/c1_1${i}.png`
+        img.onload = () => {
+            images.set(i, img.src) // Store image when loaded
+        }
     }
 }
 
+// Start animation (even if all images aren't loaded yet)
+function animateCurtain() {
+    if (!curtain.value) return
+
+    function step() {
+        if (c < 60) {
+            if (images.has(c)) {
+                // If image is loaded, display it
+                curtain.value.src = images.get(c)
+            }
+            c++
+            setTimeout(step, 40) // Continue animation every 40ms
+        } else {
+            curtain.value.classList.add('hidden')
+        }
+    }
+
+    step() // Start animation loop
+}
+
 onMounted(() => {
-    animateCurtain()
+    preloadImages() // Start loading images
+    setTimeout(animateCurtain, 500) // Start animation after short delay
 })
 
 const emit = defineEmits()
