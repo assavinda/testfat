@@ -136,7 +136,7 @@
             </div>
         </div>
 
-        <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] cursor-pointer">
+        <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] transition-all duration-500">
             <img class="curtain" ref="curtain" :src="`./images/14/curtain/c1_1${c}.png`">
         </div>
 
