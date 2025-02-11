@@ -137,7 +137,7 @@
         </div>
 
         <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] cursor-pointer">
-            <img class="curtain" ref="curtain" src="/public/images/14/curtain/c1_10.png">
+            <img class="curtain" ref="curtain" :src="`./images/14/curtain/c1_${c}.png`">
         </div>
 
 
@@ -234,12 +234,12 @@ function setItem(category,item) {
 }
 
 const curtain = ref(null)
-let c = 0
+const c = ref(0)
 function animateCurtain() {
     let interval = setInterval(() => {
-        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-        c+=1
-        if (c >= 60) {
+        // curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+        c.value+=1
+        if (c.value >= 60) {
             clearInterval(interval)
             curtain.value.classList.add('hidden')
         }
@@ -251,11 +251,11 @@ const emit = defineEmits()
 function nextgame() {
     let intervalreverse = setInterval(() => {
         curtain.value.classList.remove('hidden')
-        curtain.value.src = `./images/14/curtain/c1_1${c}.png`
-        c-=1
+        curtain.value.src = `./images/14/curtain/c1_1${c.value}.png`
+        c.value-=1
         if (c == 0) {
             clearInterval(intervalreverse)
-            curtain.value.src = `./images/14/curtain/c1_1${c}.png`
+            curtain.value.src = `./images/14/curtain/c1_1${c.value}.png`
             setTimeout(() => {
                 emit('nextpage')
             },1500)
