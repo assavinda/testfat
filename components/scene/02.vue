@@ -2,7 +2,7 @@
     <Container class="object-cover relative">
         <!-- Background Image -->
         <div>
-            <img src="/public/images/02/room-01.png" class="max-w-screen max-h-screen object-contain">
+            <img src="/public/images/02/room-01.webp" class="max-w-screen max-h-screen object-contain">
         </div>
 
         <!-- Scrollable Container -->
@@ -15,31 +15,31 @@
             <div class="flex flex-col w-full">
 
                 <div>
-                    <img class="w-[40%]" src="/public/images/02/textroom01.png">
+                    <img class="w-[40%]" src="/public/images/02/textroom01.webp">
                 </div>
 
                 <div class="flex justify-end">
-                    <img class="w-[40%]" src="/public/images/02/textroom02.png">
+                    <img class="w-[40%]" src="/public/images/02/textroom02.webp">
                 </div>
 
                 <div>
-                    <img class="w-[40%]" src="/public/images/02/textroom03.png">
+                    <img class="w-[40%]" src="/public/images/02/textroom03.webp">
                 </div>
 
                 <div class="flex justify-end">
-                    <img class="w-[40%]" src="/public/images/02/textroom04.png">
+                    <img class="w-[40%]" src="/public/images/02/textroom04.webp">
                     <div class="absolute top-[210%] left-[55%] w-[40%]">
-                        <img src="/public/images/02/textroom05.png">
+                        <img src="/public/images/02/textroom05.webp">
                     </div>
                 </div>
 
                 <div>
-                    <img class="w-[40%]" src="/public/images/02/textroom07.png">
+                    <img class="w-[40%]" src="/public/images/02/textroom07.webp">
                 </div>
 
                 <div class="flex justify-end">
                     <div class="absolute top-[230%] left-[52%] w-[53%]">
-                        <img src="/public/images/02/textroom06.png">
+                        <img src="/public/images/02/textroom06.webp">
                     </div>
                 </div>
             </div>
