@@ -1,15 +1,15 @@
 <template>
     <Container>
         <div>
-            <img src="/public/images/00/cover01.png" class="max-w-screen max-h-screen object-contain">
+            <img src="/public/images/00/cover01.webp" class="max-w-screen max-h-screen object-contain">
         </div>
 
         <div class="absolute top-0 left-0">
-            <img src="/public/images/00/cover0.png">
+            <img src="/public/images/00/cover0.webp">
         </div>
 
         <div class="absolute top-0 left-0">
-            <img src="/public/images/00/cover2.png">
+            <img src="/public/images/00/cover2.webp">
         </div>
 
         <div @click="showSuggestion" class="absolute top-[80%] left-[44%] w-[10%] hover:scale-[1.2] cursor-pointer">
