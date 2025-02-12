@@ -1,12 +1,15 @@
 <template>
     <Container ref="container" class="object-cover">
-        <div ref="scrollContainer" class="flex relative overflow-x-auto overflow-y-hidden">
+        <div>
+            <img src="/public/images/13/com00-02.png" class="max-w-screen max-h-screen object-contain opacity-0">
+        </div>
+        <div ref="scrollContainer" class="flex absolute top-0 left-0 w-[200%] overflow-x-scroll overflow-y-hidden">
             <section>
                 <div>
                     <img src="/public/images/13/com00-02.png" class="max-w-screen max-h-screen object-contain">
                 </div>
 
-                <div v-if="currentScreen === 'goobby'" class="absolute top-0 left-0">
+                <div v-if="currentScreen === 'goobby'" class="absolute top-0 left-0 w-[50%]">
                     <div>
                         <img src="/public/images/13/com04-02.png">
                     </div>
@@ -16,7 +19,7 @@
                     </div>
                 </div>
 
-                <div v-if="currentScreen === 'searchResult'" class="absolute top-0 left-0">
+                <div v-if="currentScreen === 'searchResult'" class="absolute top-0 left-0 w-[50%]">
                     <div class="relative">
                         <div>
                         <img src="/public/images/13/com03-02.png"> 
@@ -31,7 +34,7 @@
                     </div>
                 </div>
 
-                <div v-if="websiteIsOpen" class="absolute top-0 left-0 z-10">
+                <div v-if="websiteIsOpen" class="absolute top-0 left-0 z-10 w-[50%]">
                     <div>
                         <img src="/public/images/13/black-02.png"> 
                     </div>
@@ -61,11 +64,15 @@
                     <img src="/public/images/13/maz01-01.png" class="max-w-screen max-h-screen object-contain">
                 </div>
 
-                <div @click="openMagazine" class="absolute bottom-0 left-[135%] w-[28%] cursor-pointer">
+                <div class="absolute bottom-0 left-[142%] w-[8%]">
                     <img src="/public/images/13/maz00-01.png">
                 </div>
 
-                <div ref="magazine" class="absolute top-0 left-[100%] perspective-[1000px] w-full hidden z-10">
+                <div @click="openMagazine" class="absolute bottom-0 left-[67%] w-[15%] cursor-pointer">
+                    <img src="/public/images/13/maz00-01.png">
+                </div>
+
+                <div ref="magazine" class="absolute top-0 left-[50%] perspective-[1000px] hidden z-10 w-[50%]">
 
                     <!-- page 1 -->
                     <div class="absolute top-0 left-0 w-[53.05%]">
@@ -315,6 +322,8 @@ function flipPage() {
 function openMagazine() {
     scrollToEnd();
     magazine.value.classList.remove('hidden')
+    scrollContainer.value.classList.add('overflow-x-hidden')
+    scrollContainer.value.classList.remove('overflow-x-scroll')
     setTimeout(() => {
         isScrollLocked.value = true; 
     },500)
@@ -417,4 +426,28 @@ const stopDrag = () => {
     animation: vinyl-rotate infinite 3s linear reverse;
     transform-origin: center;
 }
+
+.mask {
+    -webkit-mask-image: url(/public/images/maskimage.png);
+    mask-image: url(/public/images/maskimage.png);
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+/* section {
+  flex: 0 0 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+}
+
+.scroll-container {
+  display: flex;
+  width: 100vw;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+} */
+
 </style>

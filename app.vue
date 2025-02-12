@@ -75,3 +75,14 @@ onMounted(() => {
   preloadImages()
 })
 </script>
+
+<style>
+body {
+  overflow: hidden;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
+</style>
