@@ -2,7 +2,7 @@
     <Container>
         <!-- Background Image -->
         <div>
-            <img src="/public/images/01/textเปิด01.png" class="max-w-screen max-h-screen object-contain opacity-0">
+            <img src="/public/images/01/text01.png" class="max-w-screen max-h-screen object-contain opacity-0">
         </div>
 
         <!-- Scrollable Container -->

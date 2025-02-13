@@ -2,7 +2,7 @@
     <Container>
         <!-- Background Image -->
         <div>
-            <img src="/public/images/01/textเปิด01.png" class="max-w-screen max-h-screen object-contain opacity-0">
+            <img :src="images['01-text01.png']" class="max-w-screen max-h-screen object-contain opacity-0">
         </div>
 
         <!-- Scrollable Container -->
@@ -27,8 +27,7 @@
                     </p>
 
                     <img v-else-if="item.type === 'image'"
-                         :src="item.src"
-                         :alt="item.alt"
+                         :src="images[item.src]"
                          :class="{'opacity-100': scrollPercent >= index * 8, 'opacity-0': scrollPercent < index * 8}"
                          class="absolute transition-opacity duration-700"
                          :style="{ top: item.top, left: item.left, width: item.width }">
@@ -41,7 +40,7 @@
 </template>
 
 <script setup>
-
+const images = inject("preloadedImages");
 const scrollContainer = ref(null);
 const scrollPercent = ref(0);
 const isAtEnd = ref(false)
@@ -61,7 +60,7 @@ const elements = ref([
     { type: "text", content: "ซ้ำ ๆ ทุกวัน", top: "50.2%", left: "62.5%" },
     { type: "text", content: "จนทำให้เธอขาดความมั่นใจ", top: "61.2%", left: "31.5%" },
     { type: "text", content: "ไม่กล้าที่จะแต่งตัวในแบบ", top: "72.2%", left: "22.5%" },
-    { type: "image", src: "./images/01/textเปิด12.png", alt: "Image 4", top: "-0.4%", left: "0%", width: "100%" },
+    { type: "image", src: "01-textเปิด12.png", top: "-0.4%", left: "0%", width: "100%" },
 ]);
 
 

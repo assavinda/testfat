@@ -2,7 +2,7 @@
     <Container class="object-cover relative">
         <!-- Background Image -->
         <div>
-            <img src="/images/02/room-01.webp" class="max-w-screen max-h-screen object-contain">
+            <img :src="images['02-room-01.png']" class="max-w-screen max-h-screen object-contain">
         </div>
 
         <!-- Scrollable Container -->
@@ -12,25 +12,25 @@
             <div class="w-full h-[120%]">
                 <div class="relative w-full h-full">
                     <div class="absolute top-0 left-0 w-[40%] textroom">
-                        <img src="public/images/02/textroom01.webp">
+                        <img :src="images['02-textroom01.png']">
                     </div>
                     <div class="absolute top-[7%] right-[4%] w-[40%] textroom">
-                        <img src="public/images/02/textroom02.webp">
+                        <img :src="images['02-textroom02.png']">
                     </div>
                     <div class="absolute top-[22%] left-[4%] w-[40%] textroom-r">
-                        <img src="public/images/02/textroom03.webp">
+                        <img :src="images['02-textroom03.png']">
                     </div>
                     <div class="absolute top-[29%] right-[8%] w-[40%] textroom">
-                        <img src="public/images/02/textroom04.webp">
+                        <img :src="images['02-textroom04.png']">
                     </div>
                     <div class="absolute top-[43%] right-[14%] w-[40%] textroom-r">
-                        <img src="public/images/02/textroom05.webp">
+                        <img :src="images['02-textroom05.png']">
                     </div>
                     <div class="absolute top-[50%] left-[4%] w-[40%] textroom">
-                        <img src="public/images/02/textroom07.webp">
+                        <img :src="images['02-textroom07.png']">
                     </div>
                     <div class="absolute top-[58%] right-[1%] w-[55%] textroom-r">
-                        <img src="public/images/02/textroom06.webp">
+                        <img :src="images['02-textroom06.png']">
                     </div>
                 </div>
                 
@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-
+const images = inject("preloadedImages");
 const scrollContainer = ref(null);
 const click = ref(null);
 
@@ -67,21 +67,11 @@ const handleScroll = () => {
     }
 };
 
-const images = ref(new Map())
-
-function preloadImages() {
-    const img = new Image()
-    img.src = `./images/03/04.png`
-    img.onload = () => {
-            images.value.set(`03/04`, img.src)
-    }
-}
 
 onMounted(() => {
     if (scrollContainer.value) {
         scrollContainer.value.addEventListener("scroll", handleScroll);
     }
-    preloadImages
 });
 </script>
 

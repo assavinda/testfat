@@ -15,12 +15,20 @@
 
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
-    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')" :images="images"></Scene14>
+    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14>
 
   </div>
 </template>
 
 <script setup>
+import { ref, provide } from "vue";
+import { useImagePreloader } from "@/composables/useImagePreloader";
+
+// Load images
+const { images } = useImagePreloader();
+
+// Provide after defining images
+provide("preloadedImages", images);
 
 useHead({
   link: [
@@ -31,59 +39,14 @@ useHead({
   ],
 });
 
-const currentScene = ref('00');
+const currentScene = ref("00");
 
 function setScene(sceneName) {
   currentScene.value = sceneName;
 }
-
-const categorydict = 
-{
-    'eyes':['01','02','03','04','05','06'],
-    'mouth':['01','02','03','04','05'],
-    'hair':['01','02','03','04','05','06','07','08'],
-    'clothes':['01','02','03','04','05'],
-    'trousers':['01','02','03','04','05'],
-    'dresses':['01','02','03','04'],
-    'shoes':['01','02','03','04','05'],
-    'accessories':['01','02','03','04','05','06','07']
-}
-
-const images = ref(new Map())
-
-function preloadImages() {
-
-    for (let i = 0; i < 60; i++) {
-        const img = new Image()
-        img.src = `./images/14/curtain/c1_1${i}.png`
-        img.onload = () => {
-            images.value.set(`curtain${i}`, img.src)
-        }
-    }
-
-    for (let category in categorydict) {
-        const img = new Image()
-        img.src = `./images/14/menu/${category}.png`
-        img.onload = () => {
-            images.value.set(`${category}`, img.src)
-        }
-        for (let i = 0; i < categorydict[category].length; i++) {
-            const img = new Image()
-            img.src = `./images/14/${category}/${category}${categorydict[category][i]}.png`
-            img.onload = () => {
-                images.value.set(`${category}${categorydict[category][i]}`, img.src)
-            }
-        }
-    }
-}
-
-onMounted(() => {
-  preloadImages()
-})
 </script>
 
 <style>
-
 body {
   overflow: hidden;
   font-family: "Kanit", serif;
@@ -94,10 +57,10 @@ img {
   pointer-events: none;
 }
 
-
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
+
 /* 
 body {
     cursor: url('/images/mousecursor/cursor01.png') 32 32, auto !important;
@@ -106,7 +69,4 @@ body {
 body, * {
     cursor: url('/images/mousecursor/cursor01.png') 16 16, pointer !important;
 } */
-
-
-
 </style>
