@@ -1,2 +1,6 @@
 @import "tailwindcss";
 
+@theme {
+    --color-font: #3e76bb;
+    --color-wall: #fdfce6;
+}

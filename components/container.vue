@@ -1,5 +1,5 @@
 <template>
-    <div id="container" class="relative w-fit h-fit overflow-hidden bg-amber-50">
+    <div id="container" class="relative w-fit h-fit overflow-hidden bg-wall">
         <slot></slot>
     </div>
 </template>

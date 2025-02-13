@@ -1,11 +1,17 @@
 <template>
   <div class="flex h-screen w-screen bg-black place-items-center justify-center">
 
-    <Scene00 v-if="currentScene === '00'" @start="setScene('02')"></Scene00>
+    <Scene00 v-if="currentScene === '00'" @start="setScene('01')"></Scene00>
 
-    <Scene01 v-if="currentScene === '01'"></Scene01>
+    <Scene01 v-if="currentScene === '01'" @nextpage="setScene('02')"></Scene01>
 
-    <Scene02 v-if="currentScene === '02'" @nextpage="setScene('13')"></Scene02>
+    <Scene02 v-if="currentScene === '02'" @nextpage="setScene('03')"></Scene02>
+
+    <Scene03 v-if="currentScene === '03'" @nextpage="setScene('04')"></Scene03>
+    
+    <Scene04 v-if="currentScene === '04'" @nextpage="setScene('05')"></Scene04>
+    
+    <Scene05 v-if="currentScene === '05'" @nextpage="setScene('06')"></Scene05>
 
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
@@ -77,12 +83,30 @@ onMounted(() => {
 </script>
 
 <style>
+
 body {
   overflow: hidden;
+  font-family: "Kanit", serif;
 }
 
 img {
   user-select: none;
   pointer-events: none;
 }
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+/* 
+body {
+    cursor: url('/images/mousecursor/cursor01.png') 32 32, auto !important;
+}
+
+body, * {
+    cursor: url('/images/mousecursor/cursor01.png') 16 16, pointer !important;
+} */
+
+
+
 </style>
