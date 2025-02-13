@@ -21,7 +21,6 @@
 </template>
 
 <script setup>
-import { ref, provide } from "vue";
 import { useImagePreloader } from "@/composables/useImagePreloader";
 
 // Load images
@@ -39,7 +38,7 @@ useHead({
   ],
 });
 
-const currentScene = ref("00");
+const currentScene = ref("04");
 
 function setScene(sceneName) {
   currentScene.value = sceneName;

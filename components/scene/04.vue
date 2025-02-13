@@ -2,7 +2,7 @@
     <Container>
         <!-- Background Image -->
         <div>
-            <img src="/public/images/01/text01.png" class="max-w-screen max-h-screen object-contain opacity-0">
+            <img :src="images['01-text01.png']"class="max-w-screen max-h-screen object-contain opacity-0">
         </div>
 
         <!-- Scrollable Container -->
@@ -34,17 +34,17 @@
                     </p>
 
                     <img v-else-if="item.type === 'image'"
-                         :src="item.src"
-                         :alt="item.alt"
-                         :class="{'opacity-100': scrollPercent >= index * 12, 'opacity-0': scrollPercent < index * 12}"
-                         class="absolute transition-opacity duration-700 tired"
-                         :style="{ top: item.top, left: item.left, width: item.width }">
+                        ref="tired"
+                        :src="images[tiredCurrentFrame]"
+                        :class="{'opacity-100': scrollPercent >= index * 12, 'opacity-0': scrollPercent < index * 12}"
+                        class="absolute transition-opacity duration-700 tired"
+                        :style="{ top: item.top, left: item.left, width: item.width }">
                 </template>
             </div>
             <div class="absolute top-[5%] left-0 w-full pointer-events-none">
                 <div class="relative w-full flex justify-center">
                     <div class="w-[30%]">
-                        <img src="/public/images/04/01clock.png">
+                        <img :src="images['04-01clock.png']">
                     </div>          
                 </div>
             </div>
@@ -53,11 +53,12 @@
 </template>
 
 <script setup>
-
+const images = inject("preloadedImages");
 const scrollContainer = ref(null);
 const scrollPercent = ref(0);
-const isAtEnd = ref(false)
 const textbox = ref(null)
+
+const tired = ref(null)
 
 let emit = defineEmits()
 
@@ -70,10 +71,8 @@ const elements = ref([
     { type: "text", content: "เมื่อไรแม่จะเลิกทำแบบนี้", top: '52.2%', left: '15%' },
     { type: "text", content: "แล้ว", top: '52.2%', left: '48.5%' },
     { type: "text", content: "เข้าใจเราสักที!", top: '49.3%', left: '54.5%' },
-    { type: "image", src: "./images/04/03-1.png", alt: "Image 4", top: "45%", left: "30%", width: "40%" },
+    { type: "image", src: "04-03-1.png", top: "45%", left: "30%", width: "40%" },
 ]);
-
-
 
 const handleScroll = () => {
     if (!scrollContainer.value) return;
@@ -85,6 +84,7 @@ const handleScroll = () => {
 
     console.log(`Scrolled: ${scrollPercent.value}%`);
     if (scrollPercent.value >= 100 && textbox.value) {
+        animateTired()
         setTimeout(() => {
             textbox.value.classList.add('disappear');
         },2000)
@@ -94,11 +94,20 @@ const handleScroll = () => {
     }
 };
 
-onMounted(() => {
-    if (scrollContainer.value) {
-        scrollContainer.value.addEventListener('scroll', handleScroll);
-    }
-});
+const tiredCurrentFrame = ref('04-03-2.png')
+let tiredInterval
+
+function animateTired() {
+    let tiredcount = 1;
+    tiredInterval = setInterval(() => {
+        tiredCurrentFrame.value = `04-03-${tiredcount}.png`;
+        if (tiredcount >= 2) {
+            tiredcount = 1;
+        } else {
+            tiredcount++;
+        }
+    }, 150);
+}
 </script>
 
 <style scoped>
@@ -122,15 +131,6 @@ onMounted(() => {
     }
 }
 
-@keyframes tired {
-    0% {
-        content: url('./images/04/03-1.png');
-    }
-    100% {
-        content: url('./images/04/03-2.png');
-    }
-}
-
 @keyframes disappear {
     0% {
         transform: translateY(0);
@@ -144,9 +144,5 @@ onMounted(() => {
 
 .disappear {
     animation: disappear 1s ease-in-out forwards;
-}
-
-.tired {
-    animation: tired infinite alternate 0.15s ease-in-out;
 }
 </style>

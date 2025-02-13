@@ -2,15 +2,15 @@
     <Container>
         <!-- Background Image -->
         <div>
-            <img src="/public/images/01/text01.png" class="max-w-screen max-h-screen object-contain opacity-0">
+            <img :src="images['01-text01.png']" class="max-w-screen max-h-screen object-contain opacity-0">
         </div>
 
         <div ref="bgbox" class="absolute w-full h-full left-0 top-0 pointer-events-none appear">
             <div>
-                <img src="/public/images/05/eat1-01.png">
+                <img :src="images['05-eat1-01.png']">
             </div>
             <div class="absolute top-0 left-0">
-                <img class="momspeak" src="/public/images/05/eatm01.png">
+                <img ref="mom" :src="images[momCurrentFrame]">
             </div>
         </div>
 
@@ -56,10 +56,12 @@
 </template>
 
 <script setup>
+const images = inject("preloadedImages");
 const scrollContainer = ref(null);
 const scrollPercent = ref(0);
 const bgbox = ref(null)
 const tired = ref(null)
+const mom = ref(null)
 
 const handleScroll = () => {
     if (!scrollContainer.value) return;
@@ -69,7 +71,6 @@ const handleScroll = () => {
     
     scrollPercent.value = scrollHeight > 0 ? Math.round((scrollTop / scrollHeight) * 100) : 0;
 
-    console.log(`Scrolled: ${scrollPercent.value}%`);
     if (scrollPercent.value >= 100) {
         bgbox.value.classList.remove('appear')
         bgbox.value.classList.add('disappear')
@@ -82,6 +83,30 @@ const handleScroll = () => {
         },3500)
     }
 };
+
+const momCurrentFrame = ref('05-eatm01.png')
+let momInterval
+
+function animateMom() {
+    let momcount = 1;
+    momInterval = setInterval(() => {
+        momCurrentFrame.value = `05-eatm0${momcount}.png`;
+        if (momcount >= 8) {
+            momcount = 1;
+        } else {
+            momcount++;
+        }
+    }, 150);
+}
+
+onMounted(() => {
+    animateMom();
+});
+
+onUnmounted(() => {
+    clearInterval(momInterval);
+});
+
 </script>
 
 <style scoped>
@@ -107,33 +132,6 @@ const handleScroll = () => {
 
 .tired {
     animation: tired alternate infinite 0.8s ease-in-out;
-}
-
-@keyframes momspeak {
-    0% {
-        content: url('./images/05/eatm01.png');
-    }
-    12.5% {
-        content: url('./images/05/eatm02.png');
-    }
-    25% {
-        content: url('./images/05/eatm03.png');
-    }
-    37.5% {
-        content: url('./images/05/eatm04.png');
-    }
-    50% {
-        content: url('./images/05/eatm05.png');
-    }
-    62.5% {
-        content: url('./images/05/eatm06.png');
-    }
-    75% {
-        content: url('./images/05/eatm07.png');
-    }
-    100% {
-        content: url('./images/05/eatm08.png');
-    }
 }
 
 @keyframes disappear {
@@ -194,9 +192,5 @@ const handleScroll = () => {
 
 .text-bubbles-r {
     animation: text-motion infinite alternate-reverse 0.8s ease-in-out;
-}
-
-.momspeak {
-    animation: momspeak infinite alternate 2s ease-in-out;
 }
 </style>
