@@ -15,7 +15,7 @@
 
     <Scene06 v-if="currentScene === '06'" @nextpage="setScene('07')"></Scene06>
 
-    <Scene07 v-if="currentScene === '07'" @nextpage="setScene('08')"></Scene07>
+    <Scene07 v-if="currentScene === '07'" @nextpage="setScene('13')"></Scene07>
 
     <Scene08 v-if="currentScene === '08'" @nextpage="setScene('13')"></Scene08>
 
