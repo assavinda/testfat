@@ -219,14 +219,14 @@ const skins = ['body01','body02','body03']
 const currentCategory = ref('eyes')
 const currentSkin = ref('body01')
 
-// watch(currentLayerType, (newValue) => {
-//     if (newValue === 1) {
-//         categorydict.value = categoryType1;
-//     }
-//     else if (newValue === 2) {
-//         categorydict.value = categoryType2;
-//     }
-// }, { immediate: true });
+watch(currentLayerType, (newValue) => {
+    if (newValue === 1) {
+        categorydict.value = categoryType1;
+    }
+    else if (newValue === 2) {
+        categorydict.value = categoryType2;
+    }
+}, { immediate: true });
 
 function setCategory(categoryName) {
     currentCategory.value = categoryName
