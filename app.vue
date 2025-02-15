@@ -13,6 +13,12 @@
     
     <Scene05 v-if="currentScene === '05'" @nextpage="setScene('06')"></Scene05>
 
+    <Scene06 v-if="currentScene === '06'" @nextpage="setScene('07')"></Scene06>
+
+    <Scene07 v-if="currentScene === '07'" @nextpage="setScene('08')"></Scene07>
+
+    <Scene08 v-if="currentScene === '08'" @nextpage="setScene('09')"></Scene08>
+
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
     <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14>
@@ -38,7 +44,7 @@ useHead({
   ],
 });
 
-const currentScene = ref("04");
+const currentScene = ref('00');
 
 function setScene(sceneName) {
   currentScene.value = sceneName;

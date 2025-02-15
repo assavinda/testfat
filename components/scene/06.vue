@@ -7,16 +7,19 @@
 
         <div ref="bgbox" class="absolute w-full h-full left-0 top-0 pointer-events-none appear">
             <div>
-                <img :src="images['05-eat1-01.png']">
+                <img :src="images['06-gbody.png']">
             </div>
             <div class="absolute top-0 left-0">
-                <img ref="mom" :src="images[momCurrentFrame]">
+                <img :src="images['06-bg-g.png']">
+            </div>
+            <div class="absolute top-0 left-0">
+                <img ref="grand" :src="images[grandCurrentFrame]">
             </div>
         </div>
 
-        <div ref="tired" class="absolute top-[15%] left-[30%] w-[40%]" style="opacity: 0;">
+        <div ref="tired" class="absolute top-[30%] left-[30%] w-[40%]" style="opacity: 0;">
             <div class="text-bubbles">
-                <img :src="images['05-textm09.png']">
+                <img :src="images['06-textg09.png']">
             </div>
         </div>
 
@@ -24,29 +27,29 @@
             <div class="w-full h-[150%]"></div>
             <div class="w-full h-full">
                 <div class="relative w-full h-full">
-                    <div class="absolute top-0 left-[5%] w-[35%] text-bubbles">
-                        <img :src="images['05-textm01.png']">
+                    <div class="absolute top-0 left-[4%] w-[35%] text-bubbles">
+                        <img :src="images['06-textg01.png']">
                     </div>
-                    <div class="absolute top-[24%] left-[6%] w-[35%] text-bubbles-r">
-                        <img :src="images['05-textm02.png']">
+                    <div class="absolute top-[24%] left-[5%] w-[35%] text-bubbles-r">
+                        <img :src="images['06-textg02.png']">
                     </div>
-                    <div class="absolute top-[5%] right-[14%] w-[35%] text-bubbles">
-                        <img :src="images['05-textm03.png']">
+                    <div class="absolute top-[5%] right-[8%] w-[35%] text-bubbles">
+                        <img :src="images['06-textg03.png']">
                     </div>
-                    <div class="absolute top-[33%] right-[14%] w-[35%] text-bubbles-r">
-                        <img :src="images['05-textm04.png']">
+                    <div class="absolute top-[28%] right-[0%] w-[45%] text-bubbles-r">
+                        <img :src="images['06-textg04.png']">
                     </div>
-                    <div class="absolute top-[52%] right-[8%] w-[35%] text-bubbles">
-                        <img :src="images['05-textm05.png']">
+                    <div class="absolute top-[60%] right-[4%] w-[35%] text-bubbles">
+                        <img :src="images['06-textg05.png']">
                     </div>
-                    <div class="absolute top-[48%] left-[0%] w-[47%] text-bubbles-r">
-                        <img :src="images['05-textm06.png']">
+                    <div class="absolute top-[45%] left-[0%] w-[47%] text-bubbles-r">
+                        <img :src="images['06-textg06.png']">
                     </div>
-                    <div class="absolute top-[79%] left-[2%] w-[35%] text-bubbles">
-                        <img :src="images['05-textm07.png']">
+                    <div class="absolute top-[68%] left-[2%] w-[45%] text-bubbles">
+                        <img :src="images['06-textg07.png']">
                     </div>
-                    <div class="absolute top-[68%] right-[2%] w-[48%] text-bubbles-r">
-                        <img :src="images['05-textm08.png']">
+                    <div class="absolute top-[88%] right-[10%] w-[35%] text-bubbles-r">
+                        <img :src="images['06-textg08.png']">
                     </div>
                 </div>
             </div>
@@ -62,9 +65,10 @@ const scrollContainer = ref(null);
 const scrollPercent = ref(0);
 const bgbox = ref(null)
 const tired = ref(null)
-const mom = ref(null)
+const grand = ref(null)
 
 let emit = defineEmits()
+
 
 const handleScroll = () => {
     if (!scrollContainer.value) return;
@@ -73,10 +77,16 @@ const handleScroll = () => {
     const scrollHeight = scrollContainer.value.scrollHeight - scrollContainer.value.clientHeight;
     
     scrollPercent.value = scrollHeight > 0 ? Math.round((scrollTop / scrollHeight) * 100) : 0;
-    if (scrollPercent.value >= 32 && scrollPercent.value < 100) {
-        if (!momInterval) {
-            animateMom();
+
+    console.log(scrollPercent.value)
+    if (scrollPercent.value >= 32 && scrollPercent.value < 100 && scrollPercent.value < 70) {
+        if (!grandInterval) {
+            animateGrand();
         }
+    }
+    else if (scrollPercent.value >= 70 && scrollPercent.value < 100) {
+        clearInterval(grandInterval);
+        grandCurrentFrame.value = '06-eatg4.png'
     }
     else if (scrollPercent.value >= 100) {
         isScrollLock.value = true
@@ -95,23 +105,23 @@ const handleScroll = () => {
     }
 };
 
-const momCurrentFrame = ref('05-eatm08.png')
-let momInterval
+const grandCurrentFrame = ref('06-eatg2.png')
+let grandInterval
 
-function animateMom() {
-    let momcount = 1;
-    momInterval = setInterval(() => {
-        momCurrentFrame.value = `05-eatm0${momcount}.png`;
-        if (momcount >= 8) {
-            momcount = 1;
+function animateGrand() {
+    let grandcount = 1;
+    grandInterval = setInterval(() => {
+        grandCurrentFrame.value = `06-eatg${grandcount}.png`;
+        if (grandcount >= 3) {
+            grandcount = 1;
         } else {
-            momcount++;
+            grandcount++;
         }
     }, 150);
 }
 
 onUnmounted(() => {
-    clearInterval(momInterval);
+    clearInterval(grandInterval);
 });
 
 </script>

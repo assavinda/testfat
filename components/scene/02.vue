@@ -11,25 +11,25 @@
 
             <div class="w-full h-[120%]">
                 <div class="relative w-full h-full">
-                    <div class="absolute top-0 left-0 w-[40%] textroom">
+                    <div class="absolute top-0 left-0 w-[35%] textroom">
                         <img :src="images['02-textroom01.png']">
                     </div>
-                    <div class="absolute top-[7%] right-[4%] w-[40%] textroom">
+                    <div class="absolute top-[7%] right-[4%] w-[35%] textroom">
                         <img :src="images['02-textroom02.png']">
                     </div>
-                    <div class="absolute top-[22%] left-[4%] w-[40%] textroom-r">
+                    <div class="absolute top-[22%] left-[4%] w-[35%] textroom-r">
                         <img :src="images['02-textroom03.png']">
                     </div>
-                    <div class="absolute top-[29%] right-[8%] w-[40%] textroom">
+                    <div class="absolute top-[29%] right-[8%] w-[35%] textroom">
                         <img :src="images['02-textroom04.png']">
                     </div>
-                    <div class="absolute top-[43%] right-[14%] w-[40%] textroom-r">
+                    <div class="absolute top-[43%] right-[14%] w-[35%] textroom-r">
                         <img :src="images['02-textroom05.png']">
                     </div>
-                    <div class="absolute top-[50%] left-[4%] w-[40%] textroom">
+                    <div class="absolute top-[50%] left-[4%] w-[35%] textroom">
                         <img :src="images['02-textroom07.png']">
                     </div>
-                    <div class="absolute top-[58%] right-[1%] w-[55%] textroom-r">
+                    <div class="absolute top-[58%] right-[1%] w-[50%] textroom-r">
                         <img :src="images['02-textroom06.png']">
                     </div>
                 </div>
