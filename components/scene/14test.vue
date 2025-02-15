@@ -77,8 +77,8 @@
 const images = inject("preloadedImages");
 const currentLayerType = ref(1)
 const wearingItemsBox = ref(null)
-// const categorydict = ref({})
-const categorydict = {
+const categorydict = ref({})
+const categoryType1 = {
     'eyes':{
         '01':'14',
         '02':'14',
