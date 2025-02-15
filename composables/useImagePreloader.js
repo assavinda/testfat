@@ -13,9 +13,13 @@ export function useImagePreloader() {
           .replace(/\//g, "-");          
         
         images.value[imageName] = context[key];
-  
-        console.log(`✅ loaded: ${imageName}`);
       });
+      const allImagesLoaded = Object.keys(images.value).length === Object.keys(context).length;
+      if (allImagesLoaded) {
+        console.log(`✅ All Images Loaded Successful`);
+      } else {
+        console.log(`❌ Some Images Failed To Load`);
+      }
     }
   
     importAllImages();

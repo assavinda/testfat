@@ -21,7 +21,7 @@
 
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
-    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14>
+    <Scene14test v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14test>
 
   </div>
 </template>
@@ -44,7 +44,7 @@ useHead({
   ],
 });
 
-const currentScene = ref('00');
+const currentScene = ref('14');
 
 function setScene(sceneName) {
   currentScene.value = sceneName;
