@@ -51,7 +51,6 @@
 
         <!-- Items -->
 
-        <!-- type 01 -->
         <div class="absolute top-0 left-0 w-full h-full">
             <div ref="wearingItemsBox" class="relative w-full h-full">
                 <div v-for="(items, category) in selectedItems" :key="category" class="absolute top-0 left-0 w-full h-full">
@@ -80,49 +79,49 @@ const wearingItemsBox = ref(null)
 const categorydict = ref({})
 const categoryType1 = {
     'eyes':{
+        '01':'15',
+        '02':'15',
+        '03':'15',
+        '04':'15',
+        '05':'15',
+        '06':'15'
+    },
+    'mouth':{
         '01':'14',
         '02':'14',
         '03':'14',
         '04':'14',
-        '05':'14',
-        '06':'14'
-    },
-    'mouth':{
-        '01':'13',
-        '02':'13',
-        '03':'13',
-        '04':'13',
-        '05':'13'
+        '05':'14'
     },
     'hair':{
-        '01':'7',
-        '02':'7',
-        '03':'7',
-        '04':'7',
-        '05':'7',
+        '01':'8',
+        '02':'8',
+        '03':'8',
+        '04':'8',
+        '05':'2',
         '06':'2',
         '07':'2',
-        '08':'7'
+        '08':'8'
     },
     'clothes':{
         '01':'3',
         '02':'3',
         '03':'3',
         '04':'3',
-        '05':'6'
+        '05':'7'
     },
     'trousers':{
-        '01':'5',
-        '02':'5',
-        '03':'5',
-        '04':'5',
-        '05':'5'
-    },
-    'dresses':{
         '01':'6',
         '02':'6',
+        '03':'6',
+        '04':'6',
+        '05':'6'
+    },
+    'dresses':{
+        '01':'7',
+        '02':'7',
         '03':'1',
-        '04':'6'
+        '04':'7'
     },
     'shoes':{
         '01':'1',
@@ -132,13 +131,13 @@ const categoryType1 = {
         '05':'1'
     },
     'accessories':{
-        '01':'10',
-        '02':'9',
-        '03':'4',
-        '04':'8',
-        '05':'12',
+        '01':'11',
+        '02':'10',
+        '03':'5',
+        '04':'9',
+        '05':'13',
         '06':'4',
-        '07':'11'
+        '07':'12'
     }
 }
 const categoryType2 = {
@@ -162,7 +161,7 @@ const categoryType2 = {
         '02':'8',
         '03':'8',
         '04':'8',
-        '05':'8',
+        '05':'1',
         '06':'1',
         '07':'1',
         '08':'8'
@@ -220,13 +219,27 @@ const currentCategory = ref('eyes')
 const currentSkin = ref('body01')
 
 watch(currentLayerType, (newValue) => {
-    if (newValue === 1) {
-        categorydict.value = categoryType1;
+    const previousSelections = JSON.parse(JSON.stringify(selectedItems.value));
+
+    Object.keys(selectedItems.value).forEach(category => {
+        selectedItems.value[category] = {}; 
+    });
+
+    categorydict.value = newValue === 1 ? { ...categoryType1 } : { ...categoryType2 };
+
+    for (const category in previousSelections) {
+        for (const item in previousSelections[category]) {
+            const newZIndex = categorydict.value[category]?.[item];
+            if (newZIndex) {
+                selectedItems.value[category][item] = newZIndex;
+            }
+        }
     }
-    else if (newValue === 2) {
-        categorydict.value = categoryType2;
-    }
+
+    selectedItems.value = { ...selectedItems.value };
+
 }, { immediate: true });
+
 
 function setCategory(categoryName) {
     currentCategory.value = categoryName
@@ -237,25 +250,93 @@ function setSkin(skin) {
 }
 
 function setItem(category, item , zindex) {
-    //check if there's a pink dress then change layer type
-    if(Object.keys(selectedItems.value.dresses).includes('03')) {
-        currentLayerType.value = 2
-        console.log('change type to 2')
+    //check if it's pink dress
+    if (category == 'dresses' && item == '03') {
+        //check if there already has the same item then delete it
+        if(Object.keys(selectedItems.value[category]).includes(item)) {
+            delete selectedItems.value[category][item]
+            currentLayerType.value = 1
+            console.log('type = ', currentLayerType.value)
+        }
+        else {
+            currentLayerType.value = 2
+            console.log('type = ', currentLayerType.value)
+            selectedItems.value['clothes'] = {}
+            selectedItems.value['dresses'] = {}
+            selectedItems.value['trousers'] = {}
+            //add item
+            selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
+        }
     }
     else {
-        currentLayerType.value = 1
-        console.log('change type to 1')
-    }
+        //check if there already has the same item then delete it
+        if(Object.keys(selectedItems.value[category]).includes(item)) {
+            delete selectedItems.value[category][item]
+        }
+        else {
+            //check if current layer type is 2
+            if (currentLayerType.value == 2) {
+                //check if it's clothes trousers dresses
+                if (category == 'clothes' || category == 'dresses' || category == 'trousers') {
+                    currentLayerType.value = 1
+                    delete selectedItems.value['dresses']['03']
+                    console.log('type = ', currentLayerType.value, category)
+                    //add item
+                    selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
+                }
+                else {
+                    if (category == 'hair') {
+                        selectedItems.value['hair'] = {}
+                    }
+                    //check if it's the same z-index then delete the other
+                    if (Object.values(selectedItems.value).some(items => Object.values(items).includes(zindex))) {
+                        for (const cat in selectedItems.value) {
+                            for (const key in selectedItems.value[cat]) {
+                                if (selectedItems.value[cat][key] === zindex) {
+                                    delete selectedItems.value[cat][key];
+                                }
+                            }
+                        }
+                        //add item
+                        selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
+                    }
+                    else {
+                        //add item
+                        selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
+                    }
+                }
+            }
+            else {
+                if (category == 'dresses') {
+                    selectedItems.value['clothes'] = {}
+                    selectedItems.value['trousers'] = {}
+                }
+                else if (category == 'trousers' || category == 'clothes') {
+                    selectedItems.value['dresses'] = {}
+                }
+                else if (category == 'hair') {
+                    selectedItems.value['hair'] = {}
+                }
 
-    if(Object.keys(selectedItems.value[category]).includes(item)) {
-        delete selectedItems.value[category][item]
+                //check if it's the same z-index then delete the other
+                if (Object.values(selectedItems.value).some(items => Object.values(items).includes(zindex))) {
+                    for (const cat in selectedItems.value) {
+                        for (const key in selectedItems.value[cat]) {
+                            if (selectedItems.value[cat][key] === zindex) {
+                                delete selectedItems.value[cat][key];
+                            }
+                        }
+                    }
+                    //add item
+                    selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
+                }
+                else {
+                    //add item
+                    selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
+                }
+            }
+        }
     }
-    else {
-        //add item
-        selectedItems.value[category] = Object.assign({}, selectedItems.value[category], { [item]: zindex });
-    }
-
-    console.log(selectedItems.value);
 }
 
 const curtain = ref(null)
