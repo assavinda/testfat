@@ -22,9 +22,9 @@
                 </div>
             </div>
 
-            <div class="absolute grid grid-cols-3 grid-rows-3 top-[13%] right-[7.2%] w-[45%] h-[85%] z-[100]">
-                <div v-for="(zindex, item) in categorydict[currentCategory]" @click="setItem(currentCategory,item,zindex)" class="w-full h-full cursor-pointer">
-                    <p>{{ item + " : z-" + zindex}}</p>
+            <div class="absolute grid grid-cols-3 grid-rows-3 gap-[6.8%] pr-[1.5%] pl-[1.1%] pt-[1.4%] pb-[0.5%] top-[14.3%] right-[7.8%] w-[43.6%] h-[80%] z-[100]">
+                <div v-for="(zindex, item) in categorydict[currentCategory]" @click="setItem(currentCategory,item,zindex)" class="w-full h-full rounded-[15%] cursor-pointer" :class="Object.keys(selectedItems[currentCategory]).includes(item) ? 'blur-[2px] opacity-15 bg-amber-500' : '' ">
+
                 </div>
             </div>
 
@@ -40,19 +40,20 @@
             <img :src="images['14-button.png']">
         </div>
 
-        <div @click="" class="absolute bottom-[6.3%] left-[32%] z-[101] w-[6.3%] cursor-pointer hover:scale-[1.2]">
-            <img :src="images['13-x-02.png']">
-        </div>
-
         <!-- Body -->
         <div class="absolute top-0 left-0">
             <img :src="images[`14-body-${currentSkin}.png`]">
         </div>
 
         <!-- Items -->
-
         <div class="absolute top-0 left-0 w-full h-full">
             <div ref="wearingItemsBox" class="relative w-full h-full">
+                <div v-if="Object.keys(selectedItems['hair']).includes('07')" class="absolute top-0 left-0 w-full h-full z-[90]">
+                    <img :src="images[`14-hair-07-p.png`]">
+                </div>
+                <div v-else-if="Object.keys(selectedItems['hair']).includes('06')" class="absolute top-0 left-0 w-full h-full z-[90]">
+                    <img :src="images[`14-hair-06-p.png`]">
+                </div>
                 <div v-for="(items, category) in selectedItems" :key="category" class="absolute top-0 left-0 w-full h-full">
                     <div v-for="(zindex,item) in items" :key="item" class="absolute top-0 left-0" :style="{ zIndex: zindex}">
                         <img :src="images[`14-${category}-${item}.png`]">
@@ -61,10 +62,8 @@
             </div>
         </div>
 
-
-        <!-- ---------------- -->
-
-        <div @click="animateCurtain" class="absolute top-0 left-0 z-[200] transition-all duration-500 cursor-pointer hidden">
+        <!-- curtain -->
+        <div ref="curtainBox" @click="animateCurtain" class="absolute top-0 left-0 z-[200] transition-all duration-500 cursor-pointer">
             <img class="curtain" ref="curtain" :src="images[currentCurtainFrame]">
         </div>
 
@@ -340,12 +339,13 @@ function setItem(category, item , zindex) {
 }
 
 const curtain = ref(null)
+const curtainBox = ref(null)
 const currentCurtainFrame = ref('14-curtain-c1_10.png')
 let c = 0
 
 function animateCurtain() {
     if (!curtain.value) return
-
+    curtainBox.value.classList.add('pointer-events-none')
     function step() {
         if (c < 60) {
             currentCurtainFrame.value = `14-curtain-c1_1${c}.png`
