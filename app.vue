@@ -15,13 +15,13 @@
 
     <Scene06 v-if="currentScene === '06'" @nextpage="setScene('07')"></Scene06>
 
-    <Scene07 v-if="currentScene === '07'" @nextpage="setScene('13')"></Scene07>
+    <Scene07 v-if="currentScene === '07'" @nextpage="setScene('08')"></Scene07>
 
-    <Scene08 v-if="currentScene === '08'" @nextpage="setScene('13')"></Scene08>
+    <Scene08test v-if="currentScene === '08'" @nextpage="setScene('13')"></Scene08test>
 
     <Scene13 v-if="currentScene === '13'" @nextpage="setScene('14')"></Scene13>
 
-    <Scene14test v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14test>
+    <Scene14 v-if="currentScene === '14'" @nextpage="setScene('00')"></Scene14>
 
   </div>
 </template>
@@ -29,10 +29,7 @@
 <script setup>
 import { useImagePreloader } from "@/composables/useImagePreloader";
 
-// Load images
 const { images } = useImagePreloader();
-
-// Provide after defining images
 provide("preloadedImages", images);
 
 useHead({
@@ -44,7 +41,7 @@ useHead({
   ],
 });
 
-const currentScene = ref('14');
+const currentScene = ref('00');
 
 function setScene(sceneName) {
   currentScene.value = sceneName;
